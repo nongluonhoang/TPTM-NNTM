@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống phát hiện vi phạm giao thông</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='dainam_logo.png') }}" alt="Đại học Đại Nam" class="logo">
+        <img src="{{ url_for('static', filename='iotlab_logo.png') }}" alt="Phòng Lab IoT" class="logo">
+    </div>
+
+    <h1>Hệ thống phát hiện vi phạm giao thông</h1>
+
+    <div id="videoContainer">
+        <img id="firstFrame" src="{{ url_for('get_first_frame') }}" alt="Khung hình đầu tiên">
+        <img id="videoFrame" style="display: none;" alt="Luồng video">
+        <canvas id="lineCanvas"></canvas>
+    </div>
+
+    <div class="info">
+        <p id="instruction">Nhấn vào hình ảnh để chọn hai điểm tạo đường thẳng.
+            <span id="pointCount">0/2 điểm đã chọn</span>
+        </p>
+        <button id="startButton" disabled>Bắt đầu xử lý</button>
+    </div>
+
+    <h2>Danh sách vi phạm</h2>
+
+    <table id="violationsTable">
+        <thead>
+            <tr>
+                <th>ID Xe</th>
+                <th>Thời gian vi phạm</th>
+                <th>Đường dẫn ảnh</th>
+            </tr>
+        </thead>
+        <tbody id="violationsBody">
+            <!-- Dữ liệu vi phạm sẽ được thêm bằng JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        videoFeedUrl = "{{ url_for('video_feed') }}";
+        violationsUrl = "{{ url_for('get_violations') }}";
+    </script>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+
+</html>
